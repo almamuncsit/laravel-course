@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get( 'about', 'HomeController@index');
+Route::get( 'contact', 'ContactController@contact');
+
+
+
+Route::get( 'test', function() {
+	return "Welcome to Laravel Course";
+});
