@@ -8,12 +8,11 @@ class HomeController extends Controller
 	
 	public function index()
 	{
-		$this->data['name'] = "Mamun Sarkar";
-		$this->data['roll'] = 56454;
-		$this->data['subjects'] = ['Bangla', 'English', 'Math'];
+		$this->data['name'] = 'Mamun Sarkar';
+		$this->data['roll'] = 234;
+		$this->data['subject'] = ['Math', 'Eng', 'Bangla'];
 
-
-		return view( 'home.index', $this->data );
+		return view( 'home.index', $this->data ); 
 	}	
 
 }

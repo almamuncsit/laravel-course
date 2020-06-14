@@ -21,6 +21,13 @@ Route::get('/', function () {
 Route::get( 'about', 'HomeController@index');
 Route::get( 'contact', 'ContactController@contact');
 
+Route::get( 'users', 'UserController@index');
+Route::get( 'create-user', 'UserController@create');
+Route::get( 'users/{id}', 'UserController@show');
+Route::get( 'users/{id}/delete', 'UserController@delete');
+Route::get( 'users/{id}/edit', 'UserController@edit');
+
+
 
 
 Route::get( 'test', function() {
