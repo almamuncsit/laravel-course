@@ -15,47 +15,40 @@ class UserController extends Controller
 		return $users;
 	}
 
+    public function show($id, $email = 'mamun@gmail.com')
+    {
+        return $id . ' ' . $email;
+    }
 
-	public function show( $id )
-	{	
-		$user = User::find($id);
-
-		return $user;
-	}
-
+    public function display($id)
+    {
+        return 'Display ' . $id;
+    }
 
     public function create()
     {
-    	// Create a user
-    	$data = [
-    		'name' => 'Jone Doe',
-    		'email' => 'jone@gmail.com',
-    		'password' => '123456'
-    	];
+        return view('create_user');
+    }
 
-    	User::create($data);
+    public function store()
+    {
+        return 'Added a user';
+    }
 
-    	return 'Created Successfully';
+    public function update()
+    {
+        return 'Updated';
+    }
+
+    public function updateName()
+    {
+        return 'Name has been updated';
     }
 
 
-    public function edit($id)
+    public function delete()
     {
-    	$user = User::findOrFail($id);
-    	$user->name = 'New name';
-    	$user->email = 'new_email@gmail.com';
-    	$user->save();
-
-    	return 'Edited';
-    }
-
-
-    public function delete($id)
-    {
-    	$user = User::findOrFail($id);
-    	$user->delete();
-
-    	return 'Deleted';
+        return 'Deleted';
     }
 
 }
