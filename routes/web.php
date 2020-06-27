@@ -13,50 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::view('/', 'welcome');
+Route::get('create_customer', function(){
+	$data = [
+		'name' => 'Shakib', 
+		'email'=>'shakib@gmail.com', 
+		'votes'=> '250',
+		'created_at' => now(),
+		'updated_at' => now(),
+	];
 
-Route::prefix('admin')->group(function() {
-	Route::get('hello', function() {
-		return "Hello";
-	});
-
-	Route::get('world', function() {
-		return 'World';
-	});
-
+	DB::table('customers')->insert($data);
 });
 
 
-
-// Route::get('users', 'UserController@index');
-// Route::get('create_user', 'UserController@create');
-// Route::post('add-user', 'UserController@store');
-// Route::put('update-user', 'UserController@update');
-// Route::patch('update-user-name', 'UserController@updateName');
-// Route::delete('delete-user', 'UserController@delete');
-
-Route::get('user-list', 		'UserController@index')->name('user_list');
-Route::get('users/{id}/profile/{email?}', 		'UserController@show');
-
-
-
-Route::get('users/{id}', 	'UserController@display')->where('id', '[0-9]+');
-Route::get('users/create',  'UserController@create');
-
-Route::post('users', 		'UserController@store');
-Route::put('users', 		'UserController@update');
-Route::patch('users', 		'UserController@updateName');
-Route::delete('users', 		'UserController@delete');
-
-Route::redirect('/test', '/test-any');
-
-Route::any('test-any', function () {
-    return 'I am from Any';
-});
+Route::get('customers', 'CustomerController@index');
 
 
 
