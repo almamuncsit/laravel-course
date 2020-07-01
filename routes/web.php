@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Post;
+use App\User;
+use App\Address;
+use App\Tag;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,66 +16,86 @@ use App\Post;
 |
 */
 
-Route::get('orm', function() {
-	$data = [
-		'title' => 'Welcome to dhaka',
-		'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum dignissimos assumenda maiores, amet laboriosam reprehenderit dicta autem ex fugiat impedit quaerat aspernatur illo ipsa enim a delectus itaque beatae iste!',
-		'user_id' => 1,
-		'status' => 1
-	];
+Route::get('one-to-one', function() {
+	$user = User::find(2);
+	echo $user->name . '<br/>';
+	echo $user->email . '<br/>';
+	echo $user->address->country . '<br/>';
+});
 
-	Post::create($data);
+
+Route::get('one-to-one-inverse', function() {
+	$address = Address::find(2);
+	echo $address->city . '<br/>';
+	echo $address->user->name . '<br/>';
+
+	dd($address->user);
+});
+
+
+Route::get('one-to-many', function() {
+	$user = User::find(1);
+	echo $user->name . '<br/>';
 	
+	foreach ($user->posts as $post) {
+		echo $post->title . '<br/>';
+	}
 });
 
-
-Route::get('posts/{id}', function( $id ) {
-	$posts = Post::findOrFail($id);	
-
-	dd($posts);
-});
-
-Route::get('posts', function() {
-	$posts = Post::where('status', 1)->firstOrFail();	
-
-	dd($posts);
-});
-
-Route::get('add-post', function() {
-		
-	$post = new Post();
-	$post->title = 'This is title';
-	$post->description = 'This is description';
-	$post->user_id = 1;
-	$post->status = 1;
+Route::get('one-to-many-inverse', function() {
+	$post = Post::find(17);
+	echo $post->title . '<br/>';
+	echo $post->user->name . '<br/>';
 	
-	$post->save();
+	// $post->user->name  = 'Mamun Sarkar';
+	// $post->user->save();
 
-});
-
-Route::get('update-post', function() {
-	$post = Post::find(20);
-	$post->title = 'This is new title';
-	$post->status = 0;
-	$post->save();
-});
-
-Route::get('first-or-create', function() {
-	// $post = Post::firstOrCreate(['title' => 'Hello post']);
-	$post = Post::firstOrNew(['title' => 'My new post']);
-	$post->status = 1;
-	$post->save();
+	dd($post->user);
 });
 
 
-Route::get('delete-post', function() {
-	// $post = Post::findOrFail(4);
-	// $post->delete();
+Route::get('many-to-many', function() {
+	$post = Post::find(2);
+	echo $post->title . '<br/>';
 
-	// Post::destroy([6, 7, 8]);
+	echo '<h2> Tags </h2>';
+	foreach ($post->tags as $tag) {
+		echo $tag->title . '<br/>';
+	}
 
-	Post::where('status', 0)->delete();
+	// dd($post->tags);
 });
+
+
+Route::get('many-to-many-inverse', function() {
+	$tag = Tag::find(1);
+	echo $tag->title . '<br/>';
+
+	echo '<h2> Posts </h2>';
+	foreach ($tag->posts as $post) {
+		echo $post->title . '<br/>';
+	}
+	// dd($tag->posts);
+});
+
+Route::get('attach', function() {
+	$post = Post::find(1);
+	$post->tags()->attach([1, 2]);
+});
+
+Route::get('sync', function() {
+	$post = Post::find(1);
+	$post->tags()->sync([1, 2]);
+});
+
+Route::get('detach', function() {
+	$post = Post::find(1);
+	$post->tags()->detach();
+});
+
+
+
+
 
 
 
