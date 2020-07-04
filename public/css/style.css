@@ -1,0 +1,22 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.header{
+	background: #0f0;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.footer {
+	background: #ccc;
+	text-align: center;
+	padding: 30px;
+}
+
+.post {
+	margin: 20px;
+	background: #f1f1f1;
+	padding: 10px;
+}
