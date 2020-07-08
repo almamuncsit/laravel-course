@@ -16,12 +16,44 @@ use App\Tag;
 |
 */
 
-Route::get('users', function() {
-	$users = User::take(2)->get();
-	return view('user.index', ['users'=> $users]);
-});
+// Route::get('one', function() {
+//     return 'This is first page';
+// })->middleware('test');
 
-Route::get('posts', 'PostController@index');
+// Route::get('two', function() {
+//     return 'This is second page';
+// })->middleware('test');;
+
+// Route::get('three', function() {
+//     return 'This is third page';
+// })->middleware('test');;
+
+
+// Route::middleware('test')->group(function() {
+// 	Route::get('one', function() {
+// 	    return 'This is first page';
+// 	});
+// 	Route::get('two', function() {
+// 	    return 'This is second page';
+// 	});
+// 	Route::get('three', function() {
+// 	    return 'This is third page';
+// 	});
+// });
+
+
+Route::get('users/create', 'UserController@create');
+
+Route::post('users', 'UserController@store');
+
+
+
+
+
+
+
+
+
 
 
 

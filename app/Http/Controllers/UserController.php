@@ -3,52 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\User;
 
 class UserController extends Controller
 {
 	
-	public function index()
-	{
-		$users = User::all();
-
-		return $users;
-	}
-
-    public function show($id, $email = 'mamun@gmail.com')
+	public function create()
     {
-        return $id . ' ' . $email;
+        return view('user.register');
     }
 
-    public function display($id)
+    public function store( UserRequest $request )
     {
-        return 'Display ' . $id;
-    }
+        // $request->validate([
+        //     'name' => 'required|string|min:3',
+        //     'email' => 'required|email',
+        //     'password' => 'required|numeric',
+        // ]);
 
-    public function create()
-    {
-        return view('create_user');
-    }
-
-    public function store()
-    {
-        return 'Added a user';
-    }
-
-    public function update()
-    {
-        return 'Updated';
-    }
-
-    public function updateName()
-    {
-        return 'Name has been updated';
-    }
-
-
-    public function delete()
-    {
-        return 'Deleted';
+        // return $data;
+        // return $request->input('email');
+        return $request->all();
     }
 
 }
