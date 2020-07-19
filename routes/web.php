@@ -1,50 +1,44 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Post;
-use App\User;
-use App\Address;
-use App\Tag;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-// Route::get('one', function() {
-//     return 'This is first page';
-// })->middleware('test');
+Route::get('login', 'Auth\LoginController@index')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::get('logout', 'Auth\LoginController@logout');
 
-// Route::get('two', function() {
-//     return 'This is second page';
-// })->middleware('test');;
+Route::get('register', 'Auth\RegistrationController@index');
+Route::post('register', 'Auth\RegistrationController@store');
 
-// Route::get('three', function() {
-//     return 'This is third page';
-// })->middleware('test');;
+Route::get('test', function() {
+    if (Auth::check()) {
+    	return Auth::user();
+    } else {
+    	return 'Please Login';
+    }
+});
 
 
-// Route::middleware('test')->group(function() {
-// 	Route::get('one', function() {
-// 	    return 'This is first page';
-// 	});
-// 	Route::get('two', function() {
-// 	    return 'This is second page';
-// 	});
-// 	Route::get('three', function() {
-// 	    return 'This is third page';
-// 	});
-// });
+Route::middleware('auth')->group( function() {
+    Route::get('admin', function() {
+	    return Auth::user();
+	    return 'Welcome to admin';
+	});
+	Route::get('dashboard', function() {
+	    return 'Welcome to dashboard';
+	});
+	Route::get('update', function() {
+	    return 'Welcome to udate';
+	});
+	Route::get('posts', function() {
+	    return 'Welcome to posts';
+	});
+});
 
 
-Route::get('users/create', 'UserController@create');
 
-Route::post('users', 'UserController@store');
+Route::get('file-upload', function() {
+    return view('file_upload');
+});
 
 
 
